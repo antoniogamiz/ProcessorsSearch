@@ -15,15 +15,15 @@ class DB_Handler():
             self.db=arg['db']
             
             try:
-                query="create table FIELD (id int, field1 varchar(100), field2 varchar(100), field3 varchar(100), field4 varchar(100), field5 varchar(100));"
+                query="create table PROCESSORS (id int, brand varchar(100), model varchar(100), frequency varchar(100), price int);"
                 print(self.cursor.execute(query))
                 self.connect.commit()
             except:
                 print("Warning: FIELD table, wich is used by this program, is already created.")
             
-            return 1
+            return 0
         except:
-            return -1
+            return -2
 
     def getIDs(self):
         query="select ID from FIELD where 1"
@@ -48,34 +48,35 @@ class DB_Handler():
 
     def editRegisterWithID(self, *arg):
         if len(arg)==6:
-            query="update FIELD set "+"field1=\""+arg[1]+"\", "+"field2=\""+arg[2]+"\", "+"field3=\""+arg[3]+"\", "+"field4=\""+arg[4]+"\", "+"field5=\""+arg[5]+"\" where id=\""+str(arg[0])+"\";"
+            query="update PROCESSORS set "+"brand=\""+arg[1]+"\", "+"model=\""+arg[2]+"\", "+"frequency=\""+arg[3]+"\", "+"price=\""+str(arg[4])+"\" where id=\""+str(arg[0])+"\";"
             self.cursor.execute(query)
             self.connect.commit()
 
     def getRegisterWithID(self, id):
-        query="select * from FIELD where id="+str(id)+";"
+        query="select * from PROCESSORS where id="+str(id)+";"
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def getRegisters(self):
-        query="select * from FIELD where 1;"
+        query="select * from PROCESSORS where 1;"
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def addRegister(self, *arg):
         if len(arg) != 5:
             return -1
-        values = "("+str(self.getAvailableID())+",\""+arg[0]+"\",\""+arg[1]+"\",\""+arg[2]+"\",\""+arg[3]+"\",\""+arg[4]+"\");"
-        query="insert into FIELD (id, field1, field2, field3, field4, field5) values "+values
+        values = "("+str(self.getAvailableID())+",\""+arg[0]+"\",\""+arg[1]+"\",\""+arg[2]+"\",\""+arg[3]+"\");"
+        query="insert into PROCESSORS (id, field1, field2, field3, field4) values "+values
         self.cursor.execute(query)
         self.connect.commit()
 
     def remove(self, index):
-        query = "delete from FIELD where id="+str(index)+";"
+        query = "delete from PROCESSORS where id="+str(index)+";"
         self.cursor.execute(query)
         self.connect.commit()
 
     def clear(self):
-        query = "delete from FIELD where 1;"
+        query = "delete from PROCESSORS where 1;"
         self.cursor.execute(query)
         self.connect.commit()
+

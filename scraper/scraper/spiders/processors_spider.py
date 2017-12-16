@@ -2,7 +2,6 @@
 import scrapy
 from scraper.items import ProcessorsItem
 from scrapy.loader import ItemLoader
-from scraper.data_base.db import *
 
 class ProcessorsSpider(scrapy.Spider):
     name = "processors"
