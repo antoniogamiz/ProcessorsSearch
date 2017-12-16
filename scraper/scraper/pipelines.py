@@ -12,7 +12,7 @@ import scraper.data_base.db as db
 class ProcessorsPipeline(object):
     def open_spider(self, spider):
         self.db=db.DB_Handler()
-        if self.db.openDB(host="localhost",user="antonio",passwd="antonio",db="proyecto"):
+        if self.db.openDB(host="localhost",user="antonio",passwd="antonio",db="processors"):
             sys.exit("Error al abrir la base de datos")
     
     def process_item(self, item, spider):
