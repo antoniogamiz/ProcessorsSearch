@@ -16,7 +16,7 @@ class ProcessorsPipeline(object):
             sys.exit("Error al abrir la base de datos")
     
     def process_item(self, item, spider):
-        if item['availability'][0]:
+        if item['availability'][0]:     # No todos tienen este campo, así que hay que comprobarlo.
             availability=item['availability'][0]
         else:
             availability="No disponible"

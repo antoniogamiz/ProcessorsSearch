@@ -8,7 +8,6 @@ class ProcessorsSpider(scrapy.Spider):
     start_urls = [
         "https://www.pccomponentes.com/procesadores/",
     ]
-
     def parse(self, response):
         for href in response.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div/div[4]/div/div/article/div[1]/a"):
             yield response.follow(href, self.parse_processors)

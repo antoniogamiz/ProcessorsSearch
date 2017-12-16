@@ -20,7 +20,6 @@ class Handler:
 
         self.DB_initializated = False
         self.treeIter = None    
-        self.add_edit_visible = True    
 
         #----------------------------INICIALIZACION GLADE----------------------------
         
@@ -171,7 +170,7 @@ class Handler:
             print("Error: Data Base not initializated")
     def on_load_clicked(self, button):
         if not self.DB_initializated:
-            os.chdir('./scraper')
+            os.chdir('./scraper')       # Nos cambiamos a la carpeta donde está el projecto de scrapy, ejecutamos el spider, y volvemos al directorio padre.
             os.system('scrapy crawl processors')
             os.chdir('..')
 
