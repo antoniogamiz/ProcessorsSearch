@@ -101,7 +101,7 @@ class Handler:
 
         self.scrollable_treelist.add(self.treeView_DB)
 
-        self.model = Gtk.ListStore(int, str, str, str, int)        #Creamos el modelo que usará el TreeView.
+        self.model = Gtk.ListStore(int, str, str, str, int, str)        #Creamos el modelo que usará el TreeView.
 
         self.treeView_DB.set_model(self.model)
 
@@ -123,8 +123,12 @@ class Handler:
         self.treeView_DB.append_column(column3)
 
         renderer4 = Gtk.CellRendererText(xalign=0.5)
-        column4 = Gtk.TreeViewColumn("Price", renderer4, text=4)
+        column4 = Gtk.TreeViewColumn("Price (euros)", renderer4, text=4)
         self.treeView_DB.append_column(column4)
+
+        renderer5 = Gtk.CellRendererText(xalign=0.5)
+        column5 = Gtk.TreeViewColumn("Availability", renderer5, text=5)
+        self.treeView_DB.append_column(column5)
 
 
         #----------------------------WINDOW PREFERENCES----------------------------
@@ -162,9 +166,6 @@ class Handler:
             for reg in data:        #Añadimos todos los registros de la base de datos al modelo. (No es lo más eficiente, i know xdd).
                 self.model.append(reg)
 
-            # ids = self.DB.getIDs()
-            # for i in ids:
-            #         self.id_model.append([i])
             print("DB updated")
         else:
             print("Error: Data Base not initializated")
@@ -188,10 +189,6 @@ class Handler:
                 self.model.append(reg)
             self.DB_initializated = True
 
-            # ids = self.DB.getIDs()
-            # for i in ids:
-            #     self.id_model.append([i])
-
             self.init_grid.hide()
             self.treeView_DB.show()
 
@@ -200,14 +197,10 @@ class Handler:
             print("Error: DB is already loaded")
 
     def clear_models(self):
-        # if self.model != None and self.id_model != None:
         if self.model != None:
             for row in self.model:      #Borramos los datos del modelo.
                 treeIter = self.model.get_iter_first()
                 self.model.remove(treeIter)
-            # for row in self.id_model:      #Borramos los datos del modelo.
-            #     treeIter = self.id_model.get_iter_first()
-            #     self.id_model.remove(treeIter)
 
 def main():
     window = Handler()

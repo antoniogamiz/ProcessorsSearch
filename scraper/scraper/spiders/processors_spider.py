@@ -19,4 +19,5 @@ class ProcessorsSpider(scrapy.Spider):
             loader.add_xpath('model', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[1]/h1/strong/text()')
             loader.add_xpath('frequency', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[1]/h1/strong/text()')
             loader.add_xpath('price', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[2]/div/div[1]/div[1]/span[1]/text()')
+            loader.add_xpath('availability', '//*[@id="GTM-desplegableFicha-disponibilidad"]/text()')
             return loader.load_item()

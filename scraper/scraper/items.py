@@ -8,6 +8,7 @@
 import scrapy
 import re
 from scrapy.loader.processors import TakeFirst, MapCompose
+import unicodedata
 
 class ProcessorsItem(scrapy.Item):
     brand = scrapy.Field(
@@ -23,3 +24,7 @@ class ProcessorsItem(scrapy.Item):
         outpot_processor=TakeFirst(),
     )
     price=scrapy.Field()
+    availability=scrapy.Field(
+        input_processor=MapCompose(lambda s: str(re.search("(entre el |el )(?P<model>.+)", s.encode('ascii','ignore')).group('model')).strip()),
+        outpot_processor=TakeFirst(),
+    )

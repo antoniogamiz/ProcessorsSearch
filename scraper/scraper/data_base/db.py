@@ -15,18 +15,18 @@ class DB_Handler():
             self.db=arg['db']
             
             try:
-                query="create table PROCESSORS (id int, brand varchar(100), model varchar(100), frequency varchar(100), price int);"
+                query="create table PROCESSORS2 (id int, brand varchar(100), model varchar(100), frequency varchar(100), price int, availability varchar(100));"
                 print(self.cursor.execute(query))
                 self.connect.commit()
             except:
-                print("Warning: PROCESSORS table, wich is used by this program, is already created.")
+                print("Warning: PROCESSORS2 table, wich is used by this program, is already created.")
             
             return 0
         except:
             return -2
 
     def getIDs(self):
-        query="select ID from PROCESSORS where 1"
+        query="select ID from PROCESSORS2 where 1"
         self.cursor.execute(query)
         ids = self.cursor.fetchall()
 
@@ -47,36 +47,36 @@ class DB_Handler():
         return i
 
     def editRegisterWithID(self, *arg):
-        if len(arg)==5:
-            query="update PROCESSORS set "+"brand=\""+arg[1]+"\", "+"model=\""+arg[2]+"\", "+"frequency=\""+arg[3]+"\", "+"price=\""+str(arg[4])+"\" where id=\""+str(arg[0])+"\";"
+        if len(arg)==6:
+            query="update PROCESSORS2 set "+"brand=\""+arg[1]+"\", "+"model=\""+arg[2]+"\", "+"frequency=\""+arg[3]+"\", "+"price=\""+str(arg[4])+"availability=\""+str(arg[5])+"\" where id=\""+str(arg[0])+"\";"
             self.cursor.execute(query)
             self.connect.commit()
 
     def getRegisterWithID(self, id):
-        query="select * from PROCESSORS where id="+str(id)+";"
+        query="select * from PROCESSORS2 where id="+str(id)+";"
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def getRegisters(self):
-        query="select * from PROCESSORS where 1;"
+        query="select * from PROCESSORS2 where 1;"
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     def addRegister(self, *arg):
-        if len(arg) != 4:
+        if len(arg) != 5:
             return -1
-        values = "("+str(self.getAvailableID())+",\""+arg[0]+"\",\""+arg[1]+"\",\""+arg[2]+"\",\""+str(arg[3])+"\");"
-        query="insert into PROCESSORS (id, brand, model, frequency, price) values "+values
+        values = "("+str(self.getAvailableID())+",\""+arg[0]+"\",\""+arg[1]+"\",\""+arg[2]+"\",\""+str(arg[3])+"\",\""+arg[4]+"\");"
+        query="insert into PROCESSORS2 (id, brand, model, frequency, price, availability) values "+values
         self.cursor.execute(query)
         self.connect.commit()
 
     def remove(self, index):
-        query = "delete from PROCESSORS where id="+str(index)+";"
+        query = "delete from PROCESSORS2 where id="+str(index)+";"
         self.cursor.execute(query)
         self.connect.commit()
 
     def clear(self):
-        query = "delete from PROCESSORS where 1;"
+        query = "delete from PROCESSORS2 where 1;"
         self.cursor.execute(query)
         self.connect.commit()
 

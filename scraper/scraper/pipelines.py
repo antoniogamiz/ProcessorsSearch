@@ -16,10 +16,12 @@ class ProcessorsPipeline(object):
             sys.exit("Error al abrir la base de datos")
     
     def process_item(self, item, spider):
-        self.db.addRegister(item['brand'][0],item['model'][0],item['frequency'][0],item['price'][0])
+        if item['availability'][0]:
+            availability=item['availability'][0]
+        else:
+            availability="No disponible"
+        self.db.addRegister(item['brand'][0],item['model'][0],item['frequency'][0],item['price'][0], availability)
         return item
     
     def close_spider(self, spider):
-        reg=self.db.getRegisters()
-        for r in reg:
-            print r
+        pass
