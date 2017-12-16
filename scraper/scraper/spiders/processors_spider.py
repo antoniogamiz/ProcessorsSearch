@@ -16,4 +16,7 @@ class ProcessorsSpider(scrapy.Spider):
     def parse_processors(self, response):
             loader = ItemLoader(ProcessorsItem(), selector=response)
             loader.add_xpath('brand', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[1]/h1/strong/text()')
+            loader.add_xpath('model', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[1]/h1/strong/text()')
+            loader.add_xpath('frequency', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[1]/h1/strong/text()')
+            loader.add_xpath('price', '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div[2]/div/div[1]/div[1]/span[1]/text()')
             return loader.load_item()
