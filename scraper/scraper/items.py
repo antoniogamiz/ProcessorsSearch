@@ -7,19 +7,19 @@
 
 import scrapy
 import re
-from scrapy.loader.processors import TakeFirst, Join, MapCompose
+from scrapy.loader.processors import TakeFirst, MapCompose
 
 class ProcessorsItem(scrapy.Item):
     brand = scrapy.Field(
         input_processor=MapCompose(lambda s: re.search("(Intel|AMD)", s).group(0)),
-        outpot_processor=Join(),
+        outpot_processor=TakeFirst(),
     )
     model = scrapy.Field(
         input_processor=MapCompose(lambda s: str(re.search("(Intel|AMD)(?P<model>.+)\d\.\dG[Hh][Zz]", s).group('model')).strip()),
-        outpot_processor=Join(),
+        outpot_processor=TakeFirst(),
     )
     frequency=scrapy.Field(
         input_processor=MapCompose(lambda s: re.search("\d\.\dG[Hh][Zz]", s).group(0)),
-        outpot_processor=Join(),
+        outpot_processor=TakeFirst(),
     )
     price=scrapy.Field()

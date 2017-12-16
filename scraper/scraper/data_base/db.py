@@ -19,14 +19,14 @@ class DB_Handler():
                 print(self.cursor.execute(query))
                 self.connect.commit()
             except:
-                print("Warning: FIELD table, wich is used by this program, is already created.")
+                print("Warning: PROCESSORS table, wich is used by this program, is already created.")
             
             return 0
         except:
             return -2
 
     def getIDs(self):
-        query="select ID from FIELD where 1"
+        query="select ID from PROCESSORS where 1"
         self.cursor.execute(query)
         ids = self.cursor.fetchall()
 
@@ -47,7 +47,7 @@ class DB_Handler():
         return i
 
     def editRegisterWithID(self, *arg):
-        if len(arg)==6:
+        if len(arg)==5:
             query="update PROCESSORS set "+"brand=\""+arg[1]+"\", "+"model=\""+arg[2]+"\", "+"frequency=\""+arg[3]+"\", "+"price=\""+str(arg[4])+"\" where id=\""+str(arg[0])+"\";"
             self.cursor.execute(query)
             self.connect.commit()
@@ -63,10 +63,10 @@ class DB_Handler():
         return self.cursor.fetchall()
 
     def addRegister(self, *arg):
-        if len(arg) != 5:
+        if len(arg) != 4:
             return -1
-        values = "("+str(self.getAvailableID())+",\""+arg[0]+"\",\""+arg[1]+"\",\""+arg[2]+"\",\""+arg[3]+"\");"
-        query="insert into PROCESSORS (id, field1, field2, field3, field4) values "+values
+        values = "("+str(self.getAvailableID())+",\""+arg[0]+"\",\""+arg[1]+"\",\""+arg[2]+"\",\""+str(arg[3])+"\");"
+        query="insert into PROCESSORS (id, brand, model, frequency, price) values "+values
         self.cursor.execute(query)
         self.connect.commit()
 
