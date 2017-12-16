@@ -10,7 +10,7 @@ class ProcessorsSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for href in response.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div/div[4]/div/div/article/div[1]/a"):    # Analizamos cada post de una página.
+        for href in response.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div/div[4]/div/div/article/div[1]/a"):
             yield response.follow(href, self.parse_processors)
 
     def parse_processors(self, response):
