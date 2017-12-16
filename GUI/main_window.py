@@ -28,11 +28,12 @@ class Handler:
         self.builder.connect_signals(self.handlers)
 
         self.window = self.builder.get_object("main")
+        self.window_grid = self.builder.get_object("window_grid")
 
         #----------------------------CREACIÓN DE LA TOOLBAR----------------------------
 
         self.toolbar = Gtk.Toolbar()        #Creo la toolbar desde código porque desde Glade me ha dado problemas que no he sabido solucionar.
-        self.window.attach(self.toolbar, 0,0,3,1)  #La añado al top del grid principal.
+        self.window_grid.attach(self.toolbar, 0,0,3,1)  #La añado al top del grid principal.
 
         #Creación del botón 'Load DB' (Explico este solo ya que los demás son iguales) 
         self.load_button = Gtk.ToolButton()     #Creamos el botón.
@@ -75,15 +76,20 @@ class Handler:
 
         self.update_button.connect("clicked", self.on_update_button_clicked)
 
-    def on_load_button_clicked(self):
+        #----------------------------WINDOW PREFERENCES----------------------------
+
+        self.window.resize(800,300)     #Ajustamos el tamaño de la ventana a uno adecuado.
+        self.window.show_all()          #Mostramos la ventana.
+
+    def on_load_button_clicked(self, button):
         pass
-    def on_close_button_clicked(self):
+    def on_close_button_clicked(self, button):
         pass
-    def on_clear_button_clicked(self):
+    def on_clear_button_clicked(self, button):
         pass
-    def on_add_edit_clicked(self):
+    def on_add_edit_clicked(self, button):
         pass
-    def on_update_button_clicked(self):
+    def on_update_button_clicked(self, button):
         pass
 
 def main():
