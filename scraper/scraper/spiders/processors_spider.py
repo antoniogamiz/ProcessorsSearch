@@ -2,31 +2,14 @@
 import scrapy
 from scraper.items import ProcessorsItem
 from scrapy.loader import ItemLoader
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class ProcessorsSpider(scrapy.Spider):
     name = "processors"
     start_urls = [
         "https://www.pccomponentes.com/procesadores/",
     ]
-    def __init__(self):
-
-        cap = DesiredCapabilities().FIREFOX
-        cap["marionette"] = False
-        self.driver = webdriver.Firefox(capabilities=cap)
 
     def parse(self, response):
-        self.driver.get(response.url)
-
-        while True:
-            try:
-                next = self.driver.find_element_by_xpath('//*[@id="btnMore"]')
-            except:
-                break
-
-        self.driver.close()
-
         for href in response.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div/div[4]/div/div/article/div[1]/a"):
             yield response.follow(href, self.parse_processors)
 
