@@ -1,5 +1,6 @@
 # ProcessorsSearch
 * Descripción: Analiza los procesadores disponibles en la página PcComponentes, almacenándolos en una base de datos.
+* ¿Cómo ejecutarlo? -> `python start.py` desde el directorio padre.
 * Dependencias:
     * Python2.7
     * Scrapy 1.4.0 (`pip install scrapy`)
